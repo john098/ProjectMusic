@@ -1,18 +1,23 @@
 package com.example.johnpham.musicproject;
 
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 
 public class MainActivity extends ActionBarActivity {
-
+    private TextToSpeech talk;
+    private Button button;
+    private EditText text;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
     }
 
 

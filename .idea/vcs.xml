@@ -2,9 +2,9 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="" />
-    <mapping directory="$USER_HOME$/Documents" vcs="Git" />
-    <mapping directory="$USER_HOME$/Documents/Project Music" vcs="Git" />
-    <mapping directory="$USER_HOME$/Documents/musicproject" vcs="Git" />
+    <mapping directory="$USER_HOME$/Documents" vcs="" />
+    <mapping directory="$USER_HOME$/Documents/Project Music" vcs="" />
+    <mapping directory="$USER_HOME$/Documents/musicproject" vcs="" />
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
 </project>
