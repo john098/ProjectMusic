@@ -1,5 +1,7 @@
 package com.example.johnpham.musicproject;
 
+import android.content.Context;
+import android.os.Environment;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -25,29 +27,32 @@ public class MainActivity extends ActionBarActivity implements TextToSpeech.OnIn
     private Button button;
     private EditText text=null;
     private String need="";
+    private String show="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button=(Button)findViewById(R.id.button);
         text=(EditText)findViewById(R.id.editText);
-
+        File file = new File(Environment.getExternalStoragePublicDirectory("DOWNLOAD")+"/readFile");
         try {
-            FileInputStream in=openFileInput("readFile");
-            InputStreamReader inputread=new InputStreamReader(in);
-            BufferedReader br=new BufferedReader(inputread);
+            FileReader reader=new FileReader(file);
+
+            BufferedReader br=new BufferedReader(reader);
 
             while((need=br.readLine())!=null)
-            {       need=br.readLine();
+            {
+                show=show+need+"\n";
                Log.d("printing .....",need);
             }
+            br.close();
 
         }
         catch(Exception e)
         {
-           Log.d("file cannot be open\t", e+"\n");
+           Log.d("file cannot be open\t", e+ "\t"+file+"\n");
         }
-        text.setText(need);
+        text.setText(show);
         talk=new TextToSpeech(this,this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
