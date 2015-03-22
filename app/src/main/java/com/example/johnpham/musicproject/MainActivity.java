@@ -33,12 +33,12 @@ public class MainActivity extends ActionBarActivity implements TextToSpeech.OnIn
         text=(EditText)findViewById(R.id.editText);
 
         try {
-            FileInputStream in=openFileInput("readFile.txt");
+            FileInputStream in=openFileInput("readFile");
             InputStreamReader inputread=new InputStreamReader(in);
             BufferedReader br=new BufferedReader(inputread);
 
             while((need=br.readLine())!=null)
-            {
+            {       need=br.readLine();
                Log.d("printing .....",need);
             }
 
