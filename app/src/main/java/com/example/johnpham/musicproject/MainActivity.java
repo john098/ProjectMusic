@@ -6,17 +6,56 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class MainActivity extends ActionBarActivity {
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.Buffer;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class MainActivity extends ActionBarActivity implements TextToSpeech.OnInitListener {
     private TextToSpeech talk;
     private Button button;
-    private EditText text;
+    private EditText text=null;
+    private String need="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        button=(Button)findViewById(R.id.button);
+        text=(EditText)findViewById(R.id.editText);
+
+        try {
+            FileInputStream in=openFileInput("readFile.txt");
+            InputStreamReader inputread=new InputStreamReader(in);
+            BufferedReader br=new BufferedReader(inputread);
+
+            while((need=br.readLine())!=null)
+            {
+               Log.d("printing .....",need);
+            }
+
+        }
+        catch(Exception e)
+        {
+           Log.d("file cannot be open\t", e+"\n");
+        }
+        text.setText(need);
+        talk=new TextToSpeech(this,this);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                convertTextToSpeech();
+            }
+        });
+        convertTextToSpeech();
 
     }
 
@@ -41,5 +80,31 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onInit(int status) {
+        if (status == TextToSpeech.SUCCESS) {
+            int result = talk.setLanguage(Locale.US);
+            if (result == TextToSpeech.LANG_MISSING_DATA
+                    || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e("error", "This Language is not supported");
+            } else {
+                convertTextToSpeech();
+            }
+        } else {
+            Log.e("error", "Initilization Failed!");
+        }
+    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        talk.shutdown();
+    }
+    private void convertTextToSpeech() {
+        String tex = text.getText().toString();
+        if (null == text || "".equals(text)) {
+            tex = "Please give some input.";
+        }
+        talk.speak(tex, TextToSpeech.QUEUE_FLUSH, null);
     }
 }
