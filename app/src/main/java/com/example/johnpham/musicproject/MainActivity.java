@@ -86,6 +86,7 @@ public class MainActivity extends ActionBarActivity implements TextToSpeech.OnIn
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onInit(int status) {
         if (status == TextToSpeech.SUCCESS) {
