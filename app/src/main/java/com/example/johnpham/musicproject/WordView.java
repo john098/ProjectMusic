@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class WordView extends View {
 
     int textColor;
-    String text = "";
+    //String text = "";
     Context context;
     Paint p;
     ArrayList<Letter> ls;
@@ -29,7 +29,6 @@ public class WordView extends View {
         super(context, attrs);
         TypedArray array = context.getTheme().obtainStyledAttributes(attrs,R.styleable.WordView,0,0);
         try{
-            text = array.getString(R.styleable.WordView_text);
             textColor = array.getColor(R.styleable.WordView_textColor, 0);
         }finally {
             array.recycle();
@@ -39,11 +38,7 @@ public class WordView extends View {
         p.setTextSize(100);
         p.setStyle(Paint.Style.STROKE);
         p.setColor(textColor);
-        ls = new ArrayList<Letter>();
-
-        for(int i = 0; i<text.length(); i++){
-            ls.add(new Letter(text.charAt(i)+""));
-        }
+        ls = new ArrayList<>();
     }
 
     @Override
@@ -58,14 +53,13 @@ public class WordView extends View {
         int x = (int)event.getX();
         int y = (int)event.getY();
 
-       // Log.d("Points", "X: " + x + " Y: " + y);
-
-
         for(Letter l : ls){
             Rect r = new Rect(l.getX()-10,l.getY()-100,l.getX()+80,l.getY()+30);
 
            if(r.contains(x,y)) {
             Toast.makeText(context,l.getLetter(),Toast.LENGTH_SHORT).show();
+            ls.remove(l);
+            break;
            }
         }
         invalidate();
@@ -74,7 +68,9 @@ public class WordView extends View {
 
 
     public void setText(String text) {
-        this.text = text;
+        for(int i = 0; i<text.length(); i++){
+            ls.add(new Letter(text.charAt(i)+""));
+        }
     }
 
     public void setTextColor(int color){

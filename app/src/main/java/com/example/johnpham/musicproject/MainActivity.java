@@ -25,6 +25,7 @@ import java.util.Scanner;
 public class MainActivity extends ActionBarActivity implements TextToSpeech.OnInitListener {
     private TextToSpeech talk;
     private Button button;
+    private WordView word;
     private EditText text=null;
     private String need="";
     private String show="";
@@ -33,6 +34,8 @@ public class MainActivity extends ActionBarActivity implements TextToSpeech.OnIn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         button=(Button)findViewById(R.id.button);
+        word = (WordView)findViewById(R.id.letter_view);
+        word.setText("HELLO");
         text=(EditText)findViewById(R.id.editText);
         File file = new File(Environment.getExternalStoragePublicDirectory("DOWNLOAD")+"/readFile");
         try {
@@ -61,7 +64,6 @@ public class MainActivity extends ActionBarActivity implements TextToSpeech.OnIn
             }
         });
         convertTextToSpeech();
-
     }
 
 

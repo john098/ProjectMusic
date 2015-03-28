@@ -55,7 +55,6 @@
         android:layout_height="match_parent"
         class="com.example.johnpham.musicproject.WordView"
         android:id="@+id/letter_view"
-        custom:textColor="@android:color/black"
-        custom:text="Apple"/>
+        custom:textColor="@android:color/black"/>
     </LinearLayout>
 </RelativeLayout>
