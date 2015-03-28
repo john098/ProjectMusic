@@ -37,6 +37,7 @@ public class WordView extends View {
         this.context = context;
         p = new Paint();
         p.setTextSize(100);
+        p.setStyle(Paint.Style.STROKE);
         p.setColor(textColor);
         ls = new ArrayList<Letter>();
 
@@ -56,17 +57,18 @@ public class WordView extends View {
     public boolean onTouchEvent(MotionEvent event){
         int x = (int)event.getX();
         int y = (int)event.getY();
-        Rect touchPoint = new Rect(10,10,x,y);
-        Log.d("Touch Point: ", touchPoint.toString());
 
        // Log.d("Points", "X: " + x + " Y: " + y);
 
 
         for(Letter l : ls){
-            if(Rect.intersects(touchPoint,new Rect(l.getX(),l.getY(),10,10))) {
-                Log.d("Letter Points  ",l.getLetter()+ "  X: " + l.getX() + " Y: " + l.getY());
-            }
+            Rect r = new Rect(l.getX()-10,l.getY()-100,l.getX()+80,l.getY()+30);
+
+           if(r.contains(x,y)) {
+            Toast.makeText(context,l.getLetter(),Toast.LENGTH_SHORT).show();
+           }
         }
+        invalidate();
         return true;
     }
 
