@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="WordView">
-        <attr name="letterColor" format="color"/>
-        <attr name="letter" format="string"/>
-        <attr name="x_pos" format="integer"/>
-        <attr name="y_pos" format="integer"/>
-        <attr name="clicked" format="boolean"/>
+        <attr name="textColor" format="color"/>
+        <attr name="text" format="string"/>
     </declare-styleable>
 
 </resources>
